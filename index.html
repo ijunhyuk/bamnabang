@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0c16">
+  <meta name="description" content="밤나방, 오랜 친구들이 다시 모이는 작은 아지트. 고등학교 친구 모임 테스트 웹페이지.">
+  <title>밤나방 | 우리들의 밤은 아직 끝나지 않았다</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <style>
+    :root { --bg:#0b0c16; --bg-soft:#121420; --panel:#1b1c2a; --ivory:#f3eee5; --muted:#a5a5b6; --gold:#e9bc84; --gold-dark:#b98652; --line:rgba(242,228,212,.15); --max:1150px; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; background:var(--bg); color:var(--ivory); font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; -webkit-font-smoothing:antialiased; line-height:1.65; }
+    button, input, textarea { font:inherit; }
+    a { color:inherit; text-decoration:none; }
+    button { cursor:pointer; }
+    ::selection { background:#e9bc84; color:#131421; }
+    .wrap { width:min(calc(100% - 48px), var(--max)); margin-inline:auto; }
+    .eyebrow { display:inline-flex; align-items:center; gap:10px; color:var(--gold); font-size:12px; font-weight:700; letter-spacing:.23em; text-transform:uppercase; }
+    .eyebrow:before { content:""; display:block; width:24px; height:1px; background:var(--gold); }
+    .line { height:1px; background:var(--line); }
+    .site-header { position:absolute; z-index:10; inset:0 0 auto; }
+    .header-inner { height:94px; display:flex; align-items:center; justify-content:space-between; }
+    .brand { display:inline-flex; align-items:center; gap:11px; font-size:23px; font-weight:800; letter-spacing:-.045em; }
+    .brand-icon { width:34px; height:34px; }
+    .brand small { display:block; color:#9b91a0; letter-spacing:.16em; font-size:9px; margin-top:-6px; text-align:center; }
+    .site-nav { display:flex; gap:38px; align-items:center; font-size:14px; color:#c7c6ce; }
+    .site-nav a { transition:color .2s; }
+    .site-nav a:hover, .site-nav a:focus-visible { color:var(--gold); }
+    .nav-pill { border:1px solid rgba(233,188,132,.52); border-radius:99px; padding:10px 20px; color:var(--gold)!important; }
+    .hero { position:relative; min-height:780px; display:flex; align-items:center; overflow:hidden; isolation:isolate; }
+    .hero:before { content:""; position:absolute; inset:0; z-index:-2; background:radial-gradient(ellipse at 73% 39%,rgba(89,72,108,.31),transparent 35%), radial-gradient(ellipse at 23% 87%,rgba(58,60,96,.21), transparent 40%), linear-gradient(160deg,#0e101b 5%,#0b0c16 75%); }
+    .hero:after { content:""; position:absolute; inset:0; z-index:-1; opacity:.55; background-image:radial-gradient(1px 1px at 12% 20%,#fff 99%,transparent),radial-gradient(2px 2px at 31% 46%,#eac5a3 99%,transparent),radial-gradient(1px 1px at 57% 16%,#fff 99%,transparent),radial-gradient(1px 1px at 87% 27%,#fff 99%,transparent),radial-gradient(2px 2px at 91% 68%,#c3c0eb 99%,transparent),radial-gradient(1px 1px at 71% 81%,#fff 99%,transparent),radial-gradient(1px 1px at 44% 77%,#fff 99%,transparent),radial-gradient(1px 1px at 20% 84%,#fff 99%,transparent); background-size:430px 380px; }
+    .hero-grid { display:grid; grid-template-columns:1.12fr 1fr; align-items:center; padding-top:95px; }
+    .hero-copy { padding:60px 0 75px; }
+    .hero-kicker { display:flex; align-items:center; gap:12px; color:#c4b4a9; font-size:12px; letter-spacing:.24em; font-weight:700; margin-bottom:33px; }
+    .tiny-star { color:var(--gold); font-size:18px; }
+    h1, h2, h3, p { margin-top:0; }
+    h1 { font-size:clamp(64px,8vw,109px); line-height:1.15; letter-spacing:-.09em; font-weight:800; margin-bottom:27px; }
+    h1 .gold { color:var(--gold); }
+    .hero-sub { font-size:19px; color:#ded5d1; font-weight:450; letter-spacing:-.025em; margin-bottom:18px; }
+    .hero-description { color:#a3a2b1; font-size:15px; max-width:470px; line-height:1.95; }
+    .actions { display:flex; gap:14px; align-items:center; margin-top:38px; flex-wrap:wrap; }
+    .btn { display:inline-flex; align-items:center; justify-content:center; gap:12px; padding:15px 25px; border:1px solid transparent; border-radius:7px; font-size:14px; font-weight:750; min-height:53px; transition:transform .2s, background .2s, border-color .2s; }
+    .btn:hover { transform:translateY(-2px); }
+    .btn-primary { color:#171320; background:var(--gold); }
+    .btn-primary:hover { background:#f5c995; }
+    .btn-secondary { border-color:#4b4350; color:#f2e8e2; background:rgba(255,255,255,.025); }
+    .btn-secondary:hover { border-color:var(--gold); }
+    .hero-art { position:relative; height:640px; display:grid; place-items:center; }
+    .orbital { position:absolute; width:min(100%,510px); aspect-ratio:1; border:1px solid rgba(231,191,154,.16); border-radius:50%; transform:rotate(-20deg); }
+    .orbital.two { width:min(82%,420px); border-color:rgba(231,191,154,.19); }
+    .orbital.three { width:min(63%,320px); border-color:rgba(231,191,154,.13); }
+    .moon-disc { position:absolute; width:72%; aspect-ratio:1; max-width:370px; border-radius:50%; background:radial-gradient(circle at 36% 32%,#f0d7b7 0,#d3ad8d 44%,#936d71 100%); box-shadow:0 0 80px #ddb68a16, inset -40px -25px 60px #60485975; opacity:.84; overflow:hidden; }
+    .moon-disc:before,.moon-disc:after { content:""; position:absolute; border-radius:50%; box-shadow:inset 6px 7px 9px #7e65702c; border:1px solid #7f68701c; }
+    .moon-disc:before { width:83px; height:83px; left:60px; top:50px; }
+    .moon-disc:after { width:110px; height:110px; right:35px; bottom:40px; }
+    .moth-illustration { width:92%; max-width:500px; height:auto; position:relative; z-index:2; transform:rotate(-8deg); filter:drop-shadow(0 15px 40px #100e1b70); animation:float 8s ease-in-out infinite; }
+    .orbit-word { position:absolute; bottom:42px; right:5%; color:#d6bdad8c; font-family:Georgia,serif; font-style:italic; font-size:15px; letter-spacing:.09em; }
+    .star { position:absolute; color:#e9bc84; text-shadow:0 0 20px #ecc5a3; font-size:16px; }
+    .star.a { top:15%; left:23%; } .star.b { top:28%; right:8%; font-size:10px; } .star.c { bottom:22%; left:11%; font-size:11px; }
+    .scroll-hint { position:absolute; bottom:35px; left:50%; transform:translateX(-50%); color:#a09ba7; font-size:10px; letter-spacing:.25em; text-align:center; }
+    .scroll-hint:after { content:""; width:1px; height:27px; background:linear-gradient(var(--gold),transparent); display:block; margin:10px auto 0; }
+    section { scroll-margin-top:40px; }
+    .section { padding:110px 0; }
+    .section-heading { font-size:clamp(33px,4.2vw,49px); letter-spacing:-.065em; line-height:1.35; margin:18px 0 16px; }
+    .lead { color:var(--muted); font-size:16px; line-height:1.9; }
+    .about { background:#10111d; }
+    .about-top { display:flex; justify-content:space-between; align-items:end; gap:30px; }
+    .about-top .lead { max-width:370px; margin-bottom:0; }
+    .feature-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:54px; }
+    .feature { padding:36px; background:linear-gradient(145deg,#1c1d2c,#161724); border:1px solid #302d39; border-radius:14px; min-height:238px; transition:transform .2s,border-color .2s; }
+    .feature:hover { transform:translateY(-4px); border-color:#6c5360; }
+    .feature-icon { display:block; font-size:26px; margin-bottom:27px; color:var(--gold); font-family:Georgia,serif; }
+    .feature h3 { font-size:20px; letter-spacing:-.05em; margin-bottom:8px; }
+    .feature p { color:#aeadbd; font-size:14px; line-height:1.85; margin:0; }
+    .gathering { padding:115px 0; background:radial-gradient(ellipse at 80% 10%,rgba(79,51,70,.19),transparent 50%), #0b0c16; }
+    .gathering-card { display:grid; grid-template-columns:1fr 1.1fr; background:#e9ddcc; color:#292332; border-radius:18px; overflow:hidden; min-height:400px; }
+    .gathering-art { position:relative; background:linear-gradient(140deg,#332b42,#1a2136); min-height:330px; display:grid; place-items:center; overflow:hidden; }
+    .gathering-art:before { content:""; position:absolute; width:290px; height:290px; border-radius:50%; background:radial-gradient(circle at 35% 30%,#f4d6ad,#a77e8b); box-shadow:0 0 100px #ebbc9d30; }
+    .gathering-art:after { content:""; position:absolute; width:310px; height:310px; border:1px solid #d9b6ac80; border-radius:50%; transform:scale(1.17); }
+    .gathering-art .gathering-star { font-size:90px; color:#282238; position:relative; z-index:1; transform:rotate(-12deg); font-weight:200; text-shadow:0 2px 25px #a87b8a80; }
+    .gathering-info { display:flex; flex-direction:column; justify-content:center; align-items:start; padding:55px 64px; }
+    .gathering-info .eyebrow { color:#93683f; } .gathering-info .eyebrow:before { background:#93683f; }
+    .gathering-info h2 { font-size:clamp(32px,3.3vw,46px); letter-spacing:-.07em; line-height:1.3; margin:20px 0; }
+    .gathering-info p { color:#665d67; font-size:15px; max-width:350px; margin-bottom:28px; }
+    .coming { display:inline-flex; align-items:center; gap:10px; padding:9px 15px; border:1px solid #b9a997; border-radius:99px; color:#6f594b; font-size:12px; font-weight:700; }
+    .coming .dot { background:#c18a56; width:7px; height:7px; border-radius:50%; }
+    .memories { background:#11121e; }
+    .memories-head { display:flex; justify-content:space-between; align-items:end; gap:40px; margin-bottom:43px; }
+    .memories-head .lead { max-width:355px; margin:0; }
+    .gallery { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+    .memory { min-width:0; }
+    .memory-visual { aspect-ratio:1/.94; border:1px solid #55435688; border-radius:12px; position:relative; overflow:hidden; display:grid; place-items:center; }
+    .memory-visual.one { background:radial-gradient(circle at 54% 41%,#8c6b89 0,#362c4a 39%,#211d30 70%); }
+    .memory-visual.two { background:linear-gradient(160deg,#886375 0%,#5f4c76 45%,#28283f 100%); }
+    .memory-visual.three { background:radial-gradient(ellipse at 50% 65%,#7f6b80 0,#353149 47%,#201f31 85%); }
+    .memory-visual .visual-label { color:#fff9; font-family:Georgia,serif; font-size:70px; letter-spacing:-.1em; font-style:italic; position:relative; z-index:2; transform:rotate(-9deg); }
+    .memory-visual.one:before { content:""; position:absolute; inset:12%; border-radius:50%; border:1px solid #d8b8c14a; box-shadow:0 0 0 27px #ab98ab0e, 0 0 0 58px #ab98ab0a; }
+    .memory-visual.two:before { content:""; position:absolute; width:190px; height:190px; border-radius:50%; background:#eac2b88c; box-shadow:0 0 60px #fff3; }
+    .memory-visual.two:after { content:""; position:absolute; bottom:-15px; width:120%; height:33%; background:#292437a9; transform:rotate(-8deg); }
+    .memory-visual.three:before { content:"✦"; font-size:140px; color:#d1ac9a6e; position:absolute; transform:rotate(20deg); }
+    .memory h3 { font-size:19px; margin:19px 0 1px; letter-spacing:-.04em; }
+    .memory p { color:#9492a2; font-size:13px; margin-bottom:0; }
+    .gallery-note { color:#9794a4; font-size:12px; text-align:right; margin:24px 0 0; }
+    .message-section { padding:112px 0 122px; background:#0c0d18; }
+    .message-layout { display:grid; grid-template-columns:0.9fr 1.1fr; gap:75px; align-items:start; }
+    .message-layout .lead { max-width:380px; }
+    .notice { margin-top:32px; border-left:2px solid var(--gold); color:#9894a3; font-size:13px; padding-left:15px; max-width:360px; }
+    .guestbook { border:1px solid #33303f; border-radius:15px; background:#171825; padding:30px; }
+    .form-row { display:grid; grid-template-columns:1fr 2fr; gap:12px; }
+    .field-label { display:block; color:#c8c3cb; font-size:12px; font-weight:650; margin-bottom:8px; }
+    .guestbook input,.guestbook textarea { width:100%; color:#f5eef0; background:#0f101d; border:1px solid #3d3b4a; border-radius:7px; outline:0; padding:13px 15px; font-size:14px; transition:border-color .2s; }
+    .guestbook input:focus,.guestbook textarea:focus { border-color:var(--gold); }
+    .guestbook input::placeholder,.guestbook textarea::placeholder { color:#858391; }
+    .guestbook textarea { resize:vertical; min-height:95px; }
+    .form-bottom { display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap; margin-top:15px; }
+    .form-bottom small { color:#85818f; font-size:11px; }
+    .guestbook .btn { min-height:42px; padding:10px 17px; }
+    .messages { margin-top:25px; padding-top:22px; border-top:1px solid #393443; }
+    .messages-title { display:flex; justify-content:space-between; align-items:center; font-size:13px; color:#d5cfda; margin-bottom:12px; font-weight:700; }
+    .message-item { position:relative; border-radius:8px; background:#222230; padding:16px; margin-top:10px; }
+    .message-item strong { font-size:13px; color:#ebba84; }
+    .message-item span { color:#888492; font-size:11px; margin-left:9px; }
+    .message-item p { margin:8px 0 0; font-size:14px; color:#dfdbe2; overflow-wrap:anywhere; white-space:pre-wrap; }
+    .delete-message { position:absolute; right:12px; top:10px; color:#aaa3b2; background:none; border:0; font-size:12px; padding:3px; }
+    .delete-message:hover { color:#fff; }
+    .empty-message { margin:15px 0 0; color:#898696; font-size:13px; }
+    footer { background:#10111c; border-top:1px solid #292733; padding:30px 0; }
+    .footer-inner { display:flex; align-items:center; justify-content:space-between; gap:20px; color:#9995a3; font-size:12px; }
+    footer .brand { color:var(--ivory); font-size:18px; }
+    footer .brand-icon { width:27px; height:27px; }
+    .footer-copy { letter-spacing:.04em; }
+    @keyframes float { 0%,100%{ transform:translateY(0) rotate(-8deg) } 50%{ transform:translateY(-14px) rotate(-6deg) } }
+    @media(max-width:960px) { .hero { min-height:710px; } .hero-grid { grid-template-columns:1fr .85fr; } h1 { font-size:70px; } .hero-art { height:550px; } .gathering-info { padding:43px; } .message-layout { gap:40px; } }
+    @media(max-width:720px) {
+      .wrap { width:min(calc(100% - 36px),var(--max)); }
+      .header-inner { height:74px; } .brand { font-size:21px; } .site-nav { gap:16px; font-size:12px; } .site-nav a:nth-child(1), .site-nav a:nth-child(2) { display:none; } .nav-pill { padding:8px 12px; }
+      .hero { min-height:0; } .hero-grid { grid-template-columns:1fr; padding-top:95px; }
+      .hero-copy { position:relative; z-index:3; padding:34px 0 0; } .hero-kicker { margin-bottom:20px; font-size:10px; } h1 { font-size:clamp(57px,13.2vw,84px); margin-bottom:21px; }
+      .hero-sub { font-size:17px; } .hero-description { font-size:14px; } .actions { margin-top:24px; }
+      .hero-art { height:360px; margin-top:-8px; } .moon-disc { max-width:260px; } .orbital { max-width:365px; } .orbital.two { max-width:295px; } .orbital.three { max-width:225px; } .moth-illustration { max-width:340px; } .orbit-word { display:none; } .scroll-hint { display:none; }
+      .section { padding:77px 0; } .section-heading { font-size:35px; } .about-top,.memories-head { display:block; } .about-top .lead,.memories-head .lead { margin-top:18px; }
+      .feature-grid { grid-template-columns:1fr; gap:12px; margin-top:30px; } .feature { min-height:0; padding:26px; } .feature-icon { margin-bottom:12px; }
+      .gathering { padding:75px 0; } .gathering-card { grid-template-columns:1fr; } .gathering-art { min-height:225px; } .gathering-art:before { width:175px;height:175px; } .gathering-art:after { width:195px;height:195px; } .gathering-info { padding:33px; } .gathering-info h2 { font-size:35px; }
+      .memories-head { margin-bottom:26px; } .gallery { grid-template-columns:1fr; gap:30px; } .memory-visual { aspect-ratio:1/.72; } .gallery-note { text-align:left; }
+      .message-section { padding:76px 0; } .message-layout { grid-template-columns:1fr; gap:25px; } .notice { margin-top:20px; } .guestbook { padding:20px; } .form-row { grid-template-columns:1fr; } .footer-inner { align-items:start; flex-direction:column; gap:10px; }
+    }
+    @media (prefers-reduced-motion:reduce) { *,*:before,*:after { scroll-behavior:auto!important; animation:none!important; transition:none!important; } }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a href="#home" class="brand" aria-label="밤나방 처음으로">
+        <svg class="brand-icon" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M35 33C29 16 18 7 8 13c-9 8-1 24 17 28C12 42 10 53 19 59c9 6 18-4 17-17" fill="#e9bc84" fill-opacity=".92" stroke="#f4d6a7" stroke-width="1.5"/>
+          <path d="M37 33C43 16 54 7 64 13c9 8 1 24-17 28 13 1 15 12 6 18-9 6-18-4-17-17" fill="#e9bc84" fill-opacity=".92" stroke="#f4d6a7" stroke-width="1.5"/>
+          <path d="M36 26V57M36 29l-6-12M36 29l6-12" stroke="#352735" stroke-width="2.6" stroke-linecap="round"/>
+          <circle cx="21" cy="27" r="4" fill="#493444"/><circle cx="51" cy="27" r="4" fill="#493444"/>
+        </svg>
+        <span>밤나방<small>FRIENDS AFTER DARK</small></span>
+      </a>
+      <nav class="site-nav" aria-label="주 메뉴">
+        <a href="#about">우리 이야기</a>
+        <a href="#memories">추억 보관함</a>
+        <a class="nav-pill" href="#guestbook">안부 남기기</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <div class="hero-kicker"><span class="tiny-star">✦</span> OLD FRIENDS, NEW NIGHTS</div>
+          <h1>우리는<br><span class="gold">밤나방.</span></h1>
+          <p class="hero-sub">시간이 흘러도, 우리 사이에는 불이 켜진다.</p>
+          <p class="hero-description">교실에서 시작된 인연이 아직도 이어지는 곳.<br>낮에는 각자의 일상, 밤에는 다시 그 시절의 우리.<br>반가운 친구들을 위한 작은 온라인 아지트입니다.</p>
+          <div class="actions">
+            <a href="#about" class="btn btn-primary">우리 모임 둘러보기 <span aria-hidden="true">↗</span></a>
+            <a href="#gathering" class="btn btn-secondary">다음 모임 확인</a>
+          </div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="orbital"></div><div class="orbital two"></div><div class="orbital three"></div><div class="moon-disc"></div>
+          <span class="star a">✦</span><span class="star b">✧</span><span class="star c">✦</span>
+          <svg class="moth-illustration" viewBox="0 0 580 540" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="wingMain" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#f5d9b4"/><stop offset=".45" stop-color="#be918d"/><stop offset="1" stop-color="#5a495f"/></linearGradient>
+              <linearGradient id="wingBack" x1="0" x2=".8" y1="0" y2="1"><stop stop-color="#e8c7aa"/><stop offset="1" stop-color="#786078"/></linearGradient>
+              <linearGradient id="bodyGrad" x1="0" x2="1"><stop stop-color="#a77e7f"/><stop offset=".5" stop-color="#403044"/><stop offset="1" stop-color="#a77e7f"/></linearGradient>
+            </defs>
+            <g stroke="#edc9ad" stroke-width="2" stroke-linejoin="round">
+              <path d="M287 243C205 86 93 74 39 148 5 215 77 304 209 311c-44 26-56 82-12 114 53 37 109-12 92-131Z" fill="url(#wingMain)"/>
+              <path d="M293 243C375 86 487 74 541 148c34 67-38 156-170 163 44 26 56 82 12 114-53 37-109-12-92-131Z" fill="url(#wingMain)"/>
+              <path d="M269 290c-122 25-173 79-156 132 15 47 95 48 162-59" fill="url(#wingBack)"/>
+              <path d="M311 290c122 25 173 79 156 132-15 47-95 48-162-59" fill="url(#wingBack)"/>
+            </g>
+            <g fill="none" stroke="#543e55" stroke-width="4" opacity=".8">
+              <path d="M267 252C160 109 72 140 80 193s79 81 158 100"/>
+              <path d="M313 252c107-143 195-112 187-59s-79 81-158 100"/>
+              <path d="M249 316c-97 33-117 73-84 91"/>
+              <path d="M331 316c97 33 117 73 84 91"/>
+            </g>
+            <g fill="#3c3045"><circle cx="151" cy="217" r="25"/><circle cx="429" cy="217" r="25"/></g>
+            <g fill="none" stroke="#e6c5ad" stroke-width="8"><circle cx="151" cy="217" r="32"/><circle cx="429" cy="217" r="32"/></g>
+            <g fill="#edc9b0" opacity=".74"><circle cx="95" cy="175" r="7"/><circle cx="485" cy="175" r="7"/><circle cx="215" cy="381" r="6"/><circle cx="365" cy="381" r="6"/></g>
+            <path d="M282 214c-31-75-52-89-85-96M298 214c31-75 52-89 85-96" stroke="#3d3042" stroke-width="6" fill="none" stroke-linecap="round"/>
+            <path d="M280 213c-6-24-8-47-6-59m26 59c6-24 8-47 6-59" stroke="#efcfba" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M290 203c-31 0-32 74-21 139 5 31 15 51 21 62 6-11 16-31 21-62 11-65 10-139-21-139Z" fill="url(#bodyGrad)" stroke="#e7bda7" stroke-width="3"/>
+            <path d="M290 224v150" stroke="#e6b6a3" stroke-width="3" stroke-dasharray="11 9" opacity=".8"/>
+          </svg>
+          <div class="orbit-word">Always around the same light.</div>
+        </div>
+      </div>
+      <div class="scroll-hint">SCROLL TO EXPLORE</div>
+    </section>
+
+    <section class="section about" id="about">
+      <div class="wrap">
+        <div class="about-top">
+          <div><div class="eyebrow">01 · ABOUT US</div><h2 class="section-heading">세월이 지나도<br>여전히 우리는 친구.</h2></div>
+          <p class="lead">오랜만에 만나도 어제 본 것처럼. 그때 그 별명, 그때 그 농담에 웃을 수 있는 사람들. 그게 바로 밤나방입니다.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature"><span class="feature-icon">✧</span><h3>오래된 인연</h3><p>고등학교 시절부터 지금까지 이어져 온, 소중한 친구들의 모임.</p></article>
+          <article class="feature"><span class="feature-icon">☾</span><h3>끝나지 않는 수다</h3><p>서로 다른 하루를 보내다가도 만나면 금세 하나가 되는 이야기.</p></article>
+          <article class="feature"><span class="feature-icon">✦</span><h3>계속될 우리</h3><p>그 시절의 추억을 간직하며 새로운 추억도 하나씩 쌓아갑니다.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="gathering" id="gathering">
+      <div class="wrap">
+        <div class="gathering-card">
+          <div class="gathering-art" aria-hidden="true"><span class="gathering-star">✳</span></div>
+          <div class="gathering-info">
+            <div class="eyebrow">NEXT GATHERING</div>
+            <h2>다음 밤에도,<br>우리는 모인다.</h2>
+            <p>다음 모임의 날짜와 장소가 정해지면 이곳에 공지할 수 있어요. 지금은 웹사이트 테스트 중입니다.</p>
+            <div class="coming"><span class="dot"></span> 다음 모임 일정 준비 중</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section memories" id="memories">
+      <div class="wrap">
+        <div class="memories-head"><div><div class="eyebrow">02 · MEMORY ARCHIVE</div><h2 class="section-heading">우리만 아는<br>장면들.</h2></div><p class="lead">사진 한 장에 그날의 목소리까지 떠오르는 순간들. 이곳에 우리의 시간을 채워갈 수 있습니다.</p></div>
+        <div class="gallery">
+          <article class="memory"><div class="memory-visual one" role="img" aria-label="추억 사진을 넣을 첫 번째 자리"><span class="visual-label">01</span></div><h3>그 시절의 우리</h3><p>첫 번째 추억이 들어갈 자리</p></article>
+          <article class="memory"><div class="memory-visual two" role="img" aria-label="추억 사진을 넣을 두 번째 자리"><span class="visual-label">02</span></div><h3>다시 만난 순간</h3><p>두 번째 추억이 들어갈 자리</p></article>
+          <article class="memory"><div class="memory-visual three" role="img" aria-label="추억 사진을 넣을 세 번째 자리"><span class="visual-label">03</span></div><h3>앞으로의 밤</h3><p>세 번째 추억이 들어갈 자리</p></article>
+        </div>
+        <p class="gallery-note">현재는 디자인 미리보기입니다. 실제 사진으로 언제든 교체할 수 있어요.</p>
+      </div>
+    </section>
+
+    <section class="message-section" id="guestbook">
+      <div class="wrap message-layout">
+        <div><div class="eyebrow">03 · SAY HELLO</div><h2 class="section-heading">야, 잘 지내지?</h2><p class="lead">오랜만에 안부 한 줄 남겨보세요. 친구들을 위한 방명록 기능을 미리 체험할 수 있습니다.</p><div class="notice">테스트 기능 안내: 작성한 글은 현재 사용 중인 브라우저에만 저장됩니다. 다른 사람에게 공유되지는 않습니다.</div></div>
+        <div class="guestbook">
+          <form id="messageForm">
+            <div class="form-row">
+              <div><label class="field-label" for="nickname">이름 또는 별명</label><input id="nickname" name="nickname" maxlength="20" required placeholder="예: 김밤나방" autocomplete="nickname"></div>
+              <div><label class="field-label" for="message">하고 싶은 말</label><textarea id="message" name="message" maxlength="240" required placeholder="오랜만이다! 다들 잘 지내냐?"></textarea></div>
+            </div>
+            <div class="form-bottom"><small>최대 240자 · 이 기기에만 보관</small><button type="submit" class="btn btn-primary">안부 남기기 <span aria-hidden="true">↗</span></button></div>
+          </form>
+          <div class="messages" aria-live="polite"><div class="messages-title"><span>남겨진 안부</span><span id="count">0개</span></div><div id="messageList"><p class="empty-message">아직 안부가 없어요. 첫 번째 글을 남겨보세요.</p></div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer><div class="wrap footer-inner"><a href="#home" class="brand"><svg class="brand-icon" viewBox="0 0 72 72" aria-hidden="true"><path d="M35 33C29 16 18 7 8 13c-9 8-1 24 17 28C12 42 10 53 19 59c9 6 18-4 17-17M37 33C43 16 54 7 64 13c9 8 1 24-17 28 13 1 15 12 6 18-9 6-18-4-17-17" fill="#e9bc84"/><path d="M36 26v31m0-28-6-12m6 12 6-12" stroke="#352735" stroke-width="3" stroke-linecap="round"/></svg><span>밤나방</span></a><span class="footer-copy">오랜 친구들, 오래도록. · TEST WEBSITE</span></div></footer>
+  <script>
+    (function(){
+      'use strict';
+      var key='bamnabang-guestbook-v1';
+      var form=document.getElementById('messageForm');
+      var list=document.getElementById('messageList');
+      var count=document.getElementById('count');
+      var posts=[];
+      try { var saved=JSON.parse(localStorage.getItem(key)||'[]'); if(Array.isArray(saved)){ posts=saved.filter(function(item){return item&&typeof item.name==='string'&&typeof item.message==='string';}).slice(0,20); } } catch(e){ posts=[]; }
+      function save(){ try {localStorage.setItem(key,JSON.stringify(posts));} catch(e){alert('이 브라우저에서는 저장 기능을 사용할 수 없습니다.');} }
+      function render(){
+        list.textContent=''; count.textContent=posts.length+'개';
+        if(!posts.length){var empty=document.createElement('p');empty.className='empty-message';empty.textContent='아직 안부가 없어요. 첫 번째 글을 남겨보세요.';list.appendChild(empty);return;}
+        posts.forEach(function(item,index){
+          var card=document.createElement('div');card.className='message-item';
+          var who=document.createElement('strong');who.textContent=item.name;
+          var when=document.createElement('span');when.textContent=item.date||'';
+          var body=document.createElement('p');body.textContent=item.message;
+          var del=document.createElement('button');del.type='button';del.className='delete-message';del.textContent='삭제';del.setAttribute('aria-label',item.name+'님의 안부 삭제');
+          del.addEventListener('click',function(){posts.splice(index,1);save();render();});
+          card.appendChild(who);card.appendChild(when);card.appendChild(body);card.appendChild(del);list.appendChild(card);
+        });
+      }
+      form.addEventListener('submit',function(event){
+        event.preventDefault();var name=document.getElementById('nickname').value.trim();var message=document.getElementById('message').value.trim();
+        if(!name||!message){return;}
+        var today=new Date();var date=today.getFullYear()+'. '+('0'+(today.getMonth()+1)).slice(-2)+'. '+('0'+today.getDate()).slice(-2);
+        posts.unshift({name:name.slice(0,20),message:message.slice(0,240),date:date});posts=posts.slice(0,20);save();render();document.getElementById('message').value='';
+      });
+      render();
+    })();
+  </script>
+</body>
+</html>
